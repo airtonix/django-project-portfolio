@@ -1,0 +1,8 @@
+{% load projects_tags %}
+{% for client in Clients %}
+<div class="three columns" data-project="{{ client|fields}}">
+	<a href="{% url projects_client_detail client.slug %}"><img class="th left" src="{{ client.thumbnail }}"></a>
+</div>
+{% empty %}
+<p> <a href="/contact/">Talk to us</a> about your next project!</p>
+{% endfor %}
