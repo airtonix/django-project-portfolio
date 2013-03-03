@@ -1,0 +1,22 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>{% block title %}{% endblock %}</title>
+	</head>
+	<body>
+		{% block page-title %}
+		<div id="page-title">
+		    <h1 class="header anchored eight columns centered"> 
+		      {% block page-header %}{% endblock %}
+		    </h1>
+		    <div class="splash-banner">
+		      {% block splash-banner %}{% endblock %}
+		    </div>
+		</div>
+		{% endblock %}
+
+		{% block page-content %}{% endblock %}
+
+	</body>
+</html>
+

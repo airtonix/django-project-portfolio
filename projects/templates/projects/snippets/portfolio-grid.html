@@ -1,0 +1,12 @@
+{% load projects_tags %}
+{% for project in Projects %}
+<div class="three columns" data-project="{{ project|fields}}">
+	<img class="th left" src="{{ project.thumbnail }}">
+	<div class="details left">
+		<h3 class="header">{{ project.title }}</h3>
+		<h4 class="subheader">{{ project.teaser }}</h4>
+	</div>
+</div>
+{% empty %}
+<a class="button transparent dark glow right" href="#">Create Your First Project <em class="icon-plus"></em></a>
+{% endfor %}

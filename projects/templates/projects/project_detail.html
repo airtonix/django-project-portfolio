@@ -1,0 +1,16 @@
+{% extends "projects/base.html" %}
+
+{% block title %}{{ block.super }} | {{ project.title }}{% endblock %}
+
+{% block page-title %}{{ project.title }}{% endblock %}
+{% block page-content %}
+  {% if project.image %}<img src="{{ project.image.url }}" alt="{{ project.title }}">{% endif %}
+  {{ project.body|safe }}
+
+  {% if project.endorsements %}
+    {% for endorsement in project.endorsements.all %}
+    <p>{{ endorsement.endorsement|safe }} &mdash; {{ endorsement.person }} <a href="{{ endorsement.company_url }}">{{ endorsement.company }}</a></p>
+    {% endfor %}
+  {% endif %}
+
+{% endblock %}

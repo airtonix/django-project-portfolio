@@ -1,0 +1,9 @@
+{% extends "projects/base.html" %}
+
+{% block title %}{{ block.super }} | {{ project.title }}{% endblock %}
+
+{% block page-title %}Projects{% endblock %}
+
+{% block page-content %}
+	{% include "projects/snippets/portfolio-grid.html" with Projects=object_list %}
+{% endblock %}

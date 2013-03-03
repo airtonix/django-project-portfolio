@@ -1,0 +1,9 @@
+django-classy-tags
+django-admin-sortable
+django-taggit
+surlex
+south
+coverage
+django==1.4
+nose
+sorl-thumbnail
