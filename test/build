@@ -1,2 +1,0 @@
-mkvirtualenv `basename $PWD`
-pip install .
