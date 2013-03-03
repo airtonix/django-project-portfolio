@@ -24,6 +24,7 @@ setup(
     	"django-classy-tags",
     	"surlex",
     	"south",
+        "django==1.4",
     ),
     author='Zenobius Jiricek',
     author_email='airtonix@gmail.com',
