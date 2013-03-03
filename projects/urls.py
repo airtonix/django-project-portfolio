@@ -4,10 +4,9 @@ from surlex.dj import surl
 from . import views
 
 urlpatterns = patterns('',
-    surl(r'^$', views.ProjectListView.as_view(), name='project-list'), 
-    surl(r'^<slug:s>/$', views.ProjectDetailView.as_view(), name='project-detail'),
-    
-    surl(r'^concepts/$', views.ProjectListView.as_view(tags=("concept", )), name='project-concept-list'),
+
+    surl(r'^projects/$', views.ProjectListView.as_view(), name='project-list'),
+    surl(r'^project/<slug:s>/$', views.ProjectDetailView.as_view(), name='project-detail'),
 
     surl(r'^technologies/$', views.TechnologyListView.as_view(), name='project-technology-list'),
     surl(r'^technology/<slug:s>/$', views.TechnologyDetailView.as_view(), name='project-technology-detail'),

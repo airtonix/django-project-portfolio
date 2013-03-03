@@ -1,26 +1,16 @@
-{% extends "pr_j/base.html" %}
-{% load blurb %}
+{% extends "projects/base.html" %}
 
 {% block title %}{{ block.super }} | {{ project.title }}{% endblock %}
 
-{% block article %}
-    <h6><a href="{% url cm_s_main %}">Home</a> &raquo; <a href="{% url pr_j_index %}">Projects</a> &raquo;</h6>
-    <h1>{{ project.title }}</h1>
-        {% if project.image %}
-           <p class="float-left"><img src="{{ project.image.url }}" alt="{{ project.title }}"></p>
-        {% endif %}
-    {{ project.body|safe }}
-        {% if project.endorsements %}
-           {% for endorsement in project.endorsements.all %}
-               <div class="article">
-                <p>
-                        {{ endorsement.endorsement|safe }}
-                                </p>
-                                <p>
-                    &mdash; {{ endorsement.person }} <a href="{{ endorsement.company_url }}">{{ endorsement.company }}</a>
-                            </p>
-           </div>
-           {% endfor %}
-        {% endif %}
-    {% include "includes/call_to_action.html" %}
+{% block page-title %}{{ project.title }}{% endblock %}
+{% block page-content %}
+  {% if project.image %}<img src="{{ project.image.url }}" alt="{{ project.title }}">{% endif %}
+  {{ project.body|safe }}
+
+  {% if project.endorsements %}
+    {% for endorsement in project.endorsements.all %}
+    <p>{{ endorsement.endorsement|safe }} &mdash; {{ endorsement.person }} <a href="{{ endorsement.company_url }}">{{ endorsement.company }}</a></p>
+    {% endfor %}
+  {% endif %}
+
 {% endblock %}

@@ -12,6 +12,8 @@
 *.py[co]
 *.sublime*
 *~
+*.db
+.tox/
 *.egg-info
 .codeintel/
 .git/

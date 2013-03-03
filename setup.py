@@ -3,9 +3,7 @@ from setuptools import setup, find_packages
 
 from projects import __version__ as VERSION
 
-
-def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
 	name ="django-project-portfolio",
@@ -29,7 +27,6 @@ setup(
     author='Zenobius Jiricek',
     author_email='airtonix@gmail.com',
     description='a simple project portfolio application for django.',
-    long_description = read('README.md'),
     license='MIT',
     keywords='django, portfolio, showcase',
     url='http://github.com/airtonix/django-project-portfolio/',

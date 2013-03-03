@@ -11,9 +11,9 @@ from . import settings
 
 class ExpirableContentModel(models.Model):
     is_active = models.BooleanField(default = False)
-    publish_date = models.DateTimeField(default=datetime.now, 
+    publish_date = models.DateTimeField(default=datetime.now,
         help_text=_('The date and time this article shall appear online.'))
-    expiration_date = models.DateTimeField(blank=True, null=True, 
+    expiration_date = models.DateTimeField(blank=True, null=True,
         help_text=_('Leave blank if the article does not expire.'))
 
     class Meta:
@@ -31,9 +31,9 @@ class ExpirableContentModel(models.Model):
 
 class RenderedContentModel(models.Model):
     rendered_content = models.TextField()
-    markup = models.CharField(max_length=1, 
-        choices=settings.MARKUP_OPTIONS, 
-        default=settings.MARKUP_DEFAULT, 
+    markup = models.CharField(max_length=1,
+        choices=settings.MARKUP_OPTIONS,
+        default=settings.MARKUP_DEFAULT,
         help_text=settings.MARKUP_HELP)
 
     class Meta:
@@ -50,9 +50,9 @@ class RenderedContentModel(models.Model):
 
     def save(self, *args, **kwargs):
         using = kwargs.get('using', settings.DEFAULT_DB)
-        self.render_markup() 
+        self.render_markup()
         super(RenderedContentModel, self).save(*args, **kwargs)
-       
+
     def render_markup(self, *args, **kwargs):
         """Turns any markup into HTML"""
 
@@ -112,7 +112,7 @@ class SluggedModel(models.Model):
     #         return True
 
     #     return False
-        
+
     # def get_unique_slug(self, slug):
     #     """Iterates until a unique slug is found"""
 
@@ -138,7 +138,7 @@ class SluggedModel(models.Model):
 
 
 class TaggedModel(models.Model):
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     class Meta:
         abstract = True

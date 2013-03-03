@@ -11,8 +11,8 @@ class ImageAdmin(admin.ModelAdmin): pass
 
 
 admin.site.register(models.Project, ProjectAdmin)
-admin.site.register(models.Endorsement, EndorsementAdmin)	
-admin.site.register(models.Technology, TechnologyAdmin)	
-admin.site.register(models.Collection, CollectionAdmin)	
-admin.site.register(models.Client, ClientAdmin)	
-admin.site.register(models.Image, ImageAdmin)	
+admin.site.register(models.Endorsement, EndorsementAdmin)
+admin.site.register(models.Technology, TechnologyAdmin)
+admin.site.register(models.Collection, CollectionAdmin)
+admin.site.register(models.Client, ClientAdmin)
+admin.site.register(models.Image, ImageAdmin)

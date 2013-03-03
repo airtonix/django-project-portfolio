@@ -14,7 +14,7 @@ from . import mixins
 
 
 fs = FileSystemStorage(
-    location=settings.PROJECT_UPLOAD_ROOT, 
+    location=settings.PROJECT_UPLOAD_ROOT,
     base_url=settings.PROJECT_UPLOAD_URL)
 
 
@@ -26,13 +26,13 @@ class Endorsement(Sortable, mixins.SluggedModel):
     person = models.CharField(max_length=100)
     client = models.ForeignKey("projects.Client")
     endorsement = models.TextField()
-    
+
     class Meta:
         ordering = ['order', ]
-    
+
     def __unicode__(self):
-        return self.person 
-    
+        return self.person
+
     @permalink
     def get_absolute_url(self):
         return ("project-endorsement-detail", (), {
@@ -44,7 +44,7 @@ class Technology(Sortable, mixins.TaggedModel, mixins.SluggedModel):
     A technology
     """
     detail_urlname = 'project-technology-detail'
-    
+
     name = models.CharField(max_length=100)
     description = models.TextField()
     url = models.URLField()
@@ -52,9 +52,9 @@ class Technology(Sortable, mixins.TaggedModel, mixins.SluggedModel):
 
     class Meta:
         ordering = ['order', ]
-    
+
     def __unicode__(self):
-        return self.name 
+        return self.name
 
 
 class Collection(Sortable, mixins.TaggedModel):
@@ -118,9 +118,9 @@ class Project(Sortable, mixins.TaggedModel, mixins.SluggedModel, mixins.TimeStam
     """
     detail_urlname = 'project-detail'
 
-    image = sorl.ImageField(storage=fs, upload_to='uploads/project/image', blank=True, null=True, 
+    image = sorl.ImageField(storage=fs, upload_to='uploads/project/image', blank=True, null=True,
         help_text=_("Banner graphic for this project, store all your other images as screenshots"))
-    
+
     title = models.CharField(max_length=100)
     summary = models.TextField()
     body = models.TextField()
@@ -134,10 +134,10 @@ class Project(Sortable, mixins.TaggedModel, mixins.SluggedModel, mixins.TimeStam
     launch_date = models.DateField(blank=True, null=True)
     featured = models.BooleanField(default=True)
 
-    technologies = models.ManyToManyField("projects.Technology", related_name='projects')
+    technologies = models.ManyToManyField("projects.Technology", related_name='projects', blank=True, null=True)
     endorsements = models.ManyToManyField("projects.Endorsement", related_name='projects', blank=True, null=True)
     collection = models.ForeignKey("projects.Collection", related_name='projects', blank=True, null=True)
-    
+
     objects = ProjectManager()
 
     class Meta:
@@ -146,11 +146,11 @@ class Project(Sortable, mixins.TaggedModel, mixins.SluggedModel, mixins.TimeStam
     def __init__(self, *args, **kwargs):
         super(Project, self).__init__(*args, **kwargs)
         self._teaser = None
-        
+
     def __unicode__(self):
         return self.title
 
-     
+
     def _get_teaser(self):
         """
         Retrieve some part of the project or the projects's summary.
@@ -185,7 +185,7 @@ class Image(Sortable, mixins.TaggedModel):
 
     class Meta:
         ordering = ['order', ]
-        
+
     def __unicode__(self):
         return self.image
 
