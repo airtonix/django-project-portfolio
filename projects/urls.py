@@ -5,8 +5,6 @@ from . import views
 
 urlpatterns = patterns('',
 
-    surl(r'^projects/$', views.ProjectListView.as_view(), name='project-list'),
-    surl(r'^project/<slug:s>/$', views.ProjectDetailView.as_view(), name='project-detail'),
 
     surl(r'^technologies/$', views.TechnologyListView.as_view(), name='project-technology-list'),
     surl(r'^technology/<slug:s>/$', views.TechnologyDetailView.as_view(), name='project-technology-detail'),
@@ -25,4 +23,7 @@ urlpatterns = patterns('',
 
     surl(r'^images/$', views.EndorsementListView.as_view(), name='project-image-list'),
     surl(r'^image/<pk:#>/$', views.EndorsementDetailView.as_view(), name='project-image-detail'),
+
+    surl(r'^$', views.ProjectListView.as_view(), name='project-list'),
+    surl(r'^<slug:s>/$', views.ProjectDetailView.as_view(), name='project-detail'),
 )
