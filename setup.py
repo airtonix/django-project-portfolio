@@ -29,6 +29,6 @@ setup(
     description='a simple project portfolio application for django.',
     license='MIT',
     keywords='django, portfolio, showcase',
-    url='http://github.com/airtonix/django-project-portfolio/',
+    url='http://git.zenobi.us/django-project-portfolio/',
     include_package_data=True,
 )
