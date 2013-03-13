@@ -23,20 +23,19 @@ class Endorsement(Sortable, mixins.SluggedModel):
     """
     Endorsement data
     """
+    detail_urlname = 'project-endorsement-detail'
+
     person = models.CharField(max_length=100)
     client = models.ForeignKey("projects.Client")
     endorsement = models.TextField()
 
     class Meta:
         ordering = ['order', ]
+        auto_created = False
 
     def __unicode__(self):
+        """ Unicode representation for object. """
         return self.person
-
-    @permalink
-    def get_absolute_url(self):
-        return ("project-endorsement-detail", (), {
-            "slug": self.slug })
 
 
 class Technology(Sortable, mixins.TaggedModel, mixins.SluggedModel):
@@ -52,35 +51,36 @@ class Technology(Sortable, mixins.TaggedModel, mixins.SluggedModel):
 
     class Meta:
         ordering = ['order', ]
+        auto_created = False
 
     def __unicode__(self):
+        """ Unicode representation for object. """
         return self.name
 
 
-class Collection(Sortable, mixins.TaggedModel):
+class Collection(Sortable, mixins.TaggedModel, mixins.SluggedModel):
     """ A collection of projects. """
     detail_urlname = 'projects-collection-detail'
 
     title = models.CharField(_('title'), max_length=255)
-    slug = models.SlugField(_('slug'), unique=True)
     description = models.TextField(_('description'), blank=True)
 
     class Meta(Sortable.Meta):
         verbose_name = _('collection')
         verbose_name_plural = _('collections')
+        auto_created = False
 
     def __unicode__(self):
         """ Unicode representation for object. """
         return self.title
 
 
-class Client(Sortable, mixins.TaggedModel):
+class Client(Sortable, mixins.TaggedModel, mixins.SluggedModel):
     """ A collection of clients. """
     detail_urlname = 'project-client-detail'
 
     title = models.CharField(_('title'), max_length=255)
     image = sorl.ImageField(upload_to='uploads/clients/images/')
-    slug = models.SlugField(_('slug'), unique=True)
     description = models.TextField(_('description'), blank=True)
 
     class Meta(Sortable.Meta):
@@ -148,6 +148,7 @@ class Project(Sortable, mixins.TaggedModel, mixins.SluggedModel, mixins.TimeStam
         self._teaser = None
 
     def __unicode__(self):
+        """ Unicode representation for object. """
         return self.title
 
 
@@ -176,7 +177,8 @@ class Project(Sortable, mixins.TaggedModel, mixins.SluggedModel, mixins.TimeStam
         return self.image
     thumbnail = property(_get_thumbnail)
 
-class Image(Sortable, mixins.TaggedModel):
+
+class Image(Sortable, mixins.TaggedModel, mixins.PkModel):
     """
     A related image to a project
     """
@@ -187,9 +189,6 @@ class Image(Sortable, mixins.TaggedModel):
         ordering = ['order', ]
 
     def __unicode__(self):
+        """ Unicode representation for object. """
         return self.image
 
-    @permalink
-    def get_absolute_url(self):
-        return ('project-image', (), {
-            "pk": self.pk })
