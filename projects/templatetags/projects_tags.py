@@ -30,7 +30,7 @@ def fields(instance, args=None):
 
 
 @register.tag
-class ProjectsQuerySetTag(AsTag):	 
+class ProjectsQuerySetTag(AsTag):
 	name = "get_projects"
 	options = Options(
 		MultiKeywordArgument('kwargs', resolve=True, required=False),
@@ -46,10 +46,10 @@ class ProjectsQuerySetTag(AsTag):
 			count = kwargs.get("count", count)
 
 		results = models.Project.objects.all()
-		if tag != None: 
+		if tag != None:
 			results = results.filter(tags__name=tag)
 
-		if phase != None: 
+		if phase != None:
 			results = results.filter(phase=phase)
 
 		results = results[:count]
@@ -58,7 +58,7 @@ class ProjectsQuerySetTag(AsTag):
 
 
 @register.tag
-class ClientsQuerySetTag(AsTag):	 
+class ClientsQuerySetTag(AsTag):
 	name = "get_clients"
 	options = Options(
 		MultiKeywordArgument('kwargs', resolve=True, required=False),
@@ -70,12 +70,17 @@ class ClientsQuerySetTag(AsTag):
 		count = 4
 		if kwargs != None:
 			tags = kwargs.get("tags", None)
+			nottags = kwargs.get("nottags", None)
 			phase = kwargs.get("phase", None)
 			count = kwargs.get("count", count)
 
 		results = models.Client.objects.all()
-		if tags != None: 
-			results = results.filter(tags__name=tags)
+
+		if tags != None:
+			results = results.filter(tags__name__in=tags)
+
+		if nottags != None:
+			results = results.exlude(tags__name__in=nottags)
 
 		if type(count) == int:
 			results = results[:count]
