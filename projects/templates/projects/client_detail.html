@@ -1,0 +1,9 @@
+{% extends "projects/base.html" %}
+
+{% block title %}{{ block.super }} | {{ object.title }}{% endblock %}
+
+{% block page-title %}{{ object.title }}{% endblock %}
+{% block page-content %}
+  {% if object.image %}<img src="{{ object.image.url }}" alt="{{ object.title }}">{% endif %}
+  {{ object.description|safe }}
+{% endblock %}
