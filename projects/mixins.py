@@ -82,6 +82,19 @@ class TimeStampedModel(models.Model):
     class Meta:
         abstract = True
 
+
+
+class PkModel(models.Model):
+
+    class Meta:
+        abstract = True
+
+    @permalink
+    def get_absolute_url(self):
+        return (self.detail_urlname, (), {
+            "pk": self.pk })
+
+
 class SluggedModel(models.Model):
     slug = models.SlugField(_('slug'), unique=True)
 
