@@ -1,6 +1,7 @@
 from django import template
 from django.db.models.loading import cache
 from django.db.models import Model as DjangoModel
+from django.utils.safestring import SafeUnicode
 
 from classytags.core import Options
 from classytags.arguments import (Argument, MultiValueArgument, MultiKeywordArgument)
@@ -77,13 +78,15 @@ class ClientsQuerySetTag(AsTag):
 		results = models.Client.objects.all()
 
 		if tags != None:
+			if type(tags) == str or type(tags) == SafeUnicode:
+				tags = tags.split(",")
 			results = results.filter(tags__name__in=tags)
 
 		if nottags != None:
+			if type(nottags) == str or type(nottags) == SafeUnicode:
+				nottags = nottags.split(",")
 			results = results.exlude(tags__name__in=nottags)
 
 		if type(count) == int:
 			results = results[:count]
-
 		return results
-
